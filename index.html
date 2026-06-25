@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szybki test myszy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background: #161b22;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #30363d;
+            overflow-x: auto;
+        }
+        .tab-nav a {
+            flex: 1;
+            padding: 14px 8px;
+            text-align: center;
+            color: #8b949e;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab-nav a:hover {
+            color: #e6edf3;
+            background: #1c2128;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 32px 20px 24px;
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+        }
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .header p {
+            color: #8b949e;
+            font-size: 14px;
+        }
+
+        /* Warning Banner */
+        .warning {
+            background: #1c1206;
+            border: 1px solid #5a3e00;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 16px;
+            font-size: 13px;
+            color: #f0c000;
+        }
+
+        /* Test Sections */
+        .test-section {
+            margin: 16px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .test-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .test-desc {
+            font-size: 13px;
+            color: #8b949e;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        /* Pass/Fail Criteria */
+        .criteria {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+        .criteria-pass {
+            color: #3fb950;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+        .criteria-fail {
+            color: #f85149;
+            font-size: 13px;
+        }
+
+        /* Click Area */
+        .click-area {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.1s;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        .click-area:active {
+            transform: scale(0.98);
+        }
+        .click-area .counter {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .click-area .label {
+            font-size: 11px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .click-area.right-click {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .click-area.middle-click {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        /* Scroll Area */
+        .scroll-area {
+            width: 100%;
+            height: 160px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .scroll-indicator {
+            font-size: 48px;
+            transition: transform 0.2s;
+        }
+        .scroll-stats {
+            display: flex;
+            gap: 24px;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+        .scroll-stats span { color: #8b949e; }
+        .scroll-stats .value { color: #6c63ff; font-weight: 700; }
+
+        /* Drag Container */
+        .drag-container {
+            width: 100%;
+            height: 200px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            position: relative;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .drag-box {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 10px;
+            position: absolute;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #fff;
+            font-weight: 700;
+            user-select: none;
+            text-transform: uppercase;
+        }
+        .drag-box:active { cursor: grabbing; }
+        .drag-info {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: #8b949e;
+            font-size: 13px;
+        }
+        .drag-info .value { color: #6c63ff; font-weight: 700; }
+
+        /* Buttons */
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-start {
+            background: #238636;
+            color: #fff;
+        }
+        .btn-start:hover { background: #2ea043; }
+        .btn-stop {
+            background: #da3633;
+            color: #fff;
+        }
+        .btn-stop:hover { background: #f85149; }
+        .btn-reset {
+            background: #30363d;
+            color: #c9d1d9;
+        }
+        .btn-reset:hover { background: #3d444d; }
+
+        /* Status Message */
+        .status-msg {
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            color: #8b949e;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+        }
+        .status-msg.success {
+            background: #0b1a0b;
+            border-color: #238636;
+            color: #3fb950;
+        }
+        .status-msg.active-status {
+            background: #0b1628;
+            border-color: #1f6feb;
+            color: #58a6ff;
+        }
+
+        /* Progress */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #30363d;
+            border-radius: 2px;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #6c63ff;
+            border-radius: 2px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 11px;
+            color: #484f58;
+            border-top: 1px solid #30363d;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+        <a href="#test-1">1. Lewy klik</a>
+        <a href="#test-2">2. Prawy klik</a>
+        <a href="#test-3">3. Scroll</a>
+        <a href="#test-4">4. Środkowy</a>
+        <a href="#test-5">5. Przeciąganie</a>
+    </nav>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>  ️ Szybki test myszy</h1>
+        <p>5 podstawowych testów do weryfikacji działania myszy</p>
+    </div>
+
+    <!-- Warning -->
+    <div class="warning">
+        ⚠️ Połóż mysz na płaskiej, czystej powierzchni. Upewnij się, że mysz jest włączona (bezprzewodowa) lub prawidłowo podłączona (przewodowa).
+    </div>
+
+    <!-- TEST 1: Left Click -->
+    <section class="test-section" id="test-1">
+        <h2 class="test-title">1. Test lewego przycisku</h2>
+        <p class="test-desc">Wykonaj 5 kliknięć w obszarze docelowym. Podczas klikania sprawdź, czy przycisk się nie zacina, nie ma złamanych zawiasów i reaguje w aplikacji.</p>
+
+        <div class="criteria">
+            <div class="criteria-pass">✔ PASS: Wszystkie 5 kliknięć zostaje zarejestrowanych, przycisk wraca czysto, nie zacina się ani nie chwieje</div>
+            <div class="criteria-fail">✘ FAIL: Niezarejestrowane kliknięcia, przycisk się zacina, jest luźny/złamany, podwójne kliknięcie przy jednym naciśnięciu</div>
+        </div>
+
+        <div class="progress-bar"><div class="progress-fill" id="left-progress"></div></div>
+
+        <div class="click-area" id="left-click-area" onmousedown="handleLeftClick(event)">
+            <div class="counter" id="left-counter">0 / 5</div>
+            <div class="label">Kliknij lewym tutaj</div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-reset" onclick="resetTest('left')">↺ Reset</button>
+        </div>
+
+        <div class="status-msg" id="left-status">Gotowe — kliknij lewym 5 razy w obszarze powyżej</div>
+    </section>
+
+    <!-- TEST 2: Right Click -->
+    <section class="test-section" id="test-2">
+        <h2 class="test-title">2. Test prawego przycisku</h2>
+        <p class="test-desc">Wykonaj 5 kliknięć prawym przyciskiem w obszarze docelowym. Podczas klikania sprawdź, czy przycisk się nie zacina, nie ma złamanych zawiasów i reaguje w aplikacji.</p>
+
+        <div class="criteria">
+            <div class="criteria-pass">✔ PASS: Wszystkie 5 kliknięć zostaje zarejestrowanych, przycisk wraca czysto, nie zacina się ani nie chwieje</div>
+            <div class="criteria-fail">✘ FAIL: Niezarejestrowane kliknięcia, przycisk się zacina, jest luźny/złamany, lub problemy z menu kontekstowym</div>
+        </div>
+
+        <div class="progress-bar"><div class="progress-fill" id="right-progress"></div></div>
+
+        <div class="click-area right-click" id="right-click-area" oncontextmenu="handleRightClick(event)">
+            <div class="counter" id="right-counter">0 / 5</div>
+            <div class="label">Kliknij prawym tutaj</div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-reset" onclick="resetTest('right')">↺ Reset</button>
+        </div>
+
+        <div class="status-msg" id="right-status">Gotowe — kliknij prawym 5 razy w obszarze powyżej</div>
+    </section>
+
+    <!-- TEST 3: Scroll Wheel -->
+    <section class="test-section" id="test-3">
+        <h2 class="test-title">3. Test kółka przewijania</h2>
+        <p class="test-desc">Sprawdź, czy kółko przewijania jest wycentrowane, nie ociera się i obraca się swobodnie z wyczuwalnymi krokami (jeśli dotyczy). Przewiń w górę i w dół 3 razy i zweryfikuj reakcję w aplikacji.</p>
+
+        <div class="criteria">
+            <div class="criteria-pass">✔ PASS: Kółko wycentrowane, płynna rotacja z równomiernymi krokami, wszystkie przewinięcia zarejestrowane</div>
+            <div class="criteria-fail">✘ FAIL: Kółko ociera się, nierównomierne/brakujące kroki, przeskakiwanie, lub brak rejestracji</div>
+        </div>
+
+        <div class="progress-bar"><div class="progress-fill" id="scroll-progress"></div></div>
+
+        <div class="scroll-area" id="scroll-area" onwheel="handleScroll(event)">
+            <div class="scroll-indicator" id="scroll-indicator">⟳</div>
+            <div class="scroll-stats">
+                <span>↑ Góra: <span class="value" id="scroll-up-count">0</span> / 3</span>
+                <span>↓ Dół: <span class="value" id="scroll-down-count">0</span> / 3</span>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-reset" onclick="resetTest('scroll')">↺ Reset</button>
+        </div>
+
+        <div class="status-msg" id="scroll-status">Gotowe — przewiń 3× w górę i 3× w dół w obszarze powyżej</div>
+    </section>
+
+    <!-- TEST 4: Middle Click -->
+    <section class="test-section" id="test-4">
+        <h2 class="test-title">4. Środkowy klik (klik kółkiem)</h2>
+        <p class="test-desc">Jeśli jest obecny, wykonaj 5 kliknięć naciskając kółko przewijania. Sprawdź, czy reaguje w aplikacji.</p>
+
+        <div class="criteria">
+            <div class="criteria-pass">✔ PASS: Wszystkie 5 kliknięć zarejestrowanych, kółko klika z wyraźnym dotykowym sprzężeniem zwrotnym</div>
+            <div class="criteria-fail">✘ FAIL: Kliknięcia się nie rejestrują, przycisk jest miękki/niereagujący, lub przewija zamiast klikać</div>
+        </div>
+
+        <div class="progress-bar"><div class="progress-fill" id="middle-progress"></div></div>
+
+        <div class="click-area middle-click" id="middle-click-area" onmousedown="handleMiddleClick(event)">
+            <div class="counter" id="middle-counter">0 / 5</div>
+            <div class="label">Środkowy klik (naciśnij kółko) tutaj</div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-reset" onclick="resetTest('middle')">↺ Reset</button>
+        </div>
+
+        <div class="status-msg" id="middle-status">Gotowe — naciśnij kółko przewijania 5× w obszarze powyżej</div>
+    </section>
+
+    <!-- TEST 5: Drag Test -->
+    <section class="test-section" id="test-5">
+        <h2 class="test-title">5. Test przeciągania</h2>
+        <p class="test-desc">Wykonaj test przeciągania przesuwając box 2 razy. Kliknij, przytrzymaj, przesuń i puść.</p>
+
+        <div class="criteria">
+            <div class="criteria-pass">✔ PASS: Box płynnie podąża za kursorem, czysto się puszcza, 2 przeciągnięcia ukończone</div>
+            <div class="criteria-fail">✘ FAIL: Box upada podczas przeciągania, zacina się, lub nie podąża za kursorem</div>
+        </div>
+
+        <div class="progress-bar"><div class="progress-fill" id="drag-progress"></div></div>
+
+        <div class="drag-container" id="drag-container">
+            <div class="drag-box" id="drag-box">Przeciągnij</div>
+            <div class="drag-info">Ukończone przeciągnięcia: <span class="value" id="drag-count">0</span> / 2</div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-reset" onclick="resetTest('drag')">↺ Reset</button>
+        </div>
+
+        <div class="status-msg" id="drag-status">Gotowe — kliknij i przeciągnij box, przesuń go i puść. Powtórz 2×.</div>
+    </section>
+
+    <!-- Footer -->
+    <div class="footer">
+        Szybki test myszy v1.0 | 5 testów | Żadne dane nie są zbierane
+    </div>
+
+    <script>
+        // State
+        let leftClicks = 0;
+        let rightClicks = 0;
+        let middleClicks = 0;
+        let scrollUpCount = 0;
+        let scrollDownCount = 0;
+        let dragCount = 0;
+        let scrollAccumulator = 0;
+        let scrollThreshold = 80;
+
+        // Left Click
+        function handleLeftClick(e) {
+            if (e.button !== 0) return;
+            if (leftClicks >= 5) return;
+            leftClicks++;
+            document.getElementById('left-counter').textContent = leftClicks + ' / 5';
+            document.getElementById('left-progress').style.width = (leftClicks / 5 * 100) + '%';
+            if (leftClicks >= 5) {
+                document.getElementById('left-status').textContent = '✓ Wszystkie 5 lewych kliknięć zarejestrowanych pomyślnie!';
+                document.getElementById('left-status').className = 'status-msg success';
+            } else {
+                document.getElementById('left-status').textContent = 'Kliknięcie ' + leftClicks + ' zarejestrowane — pozostało ' + (5 - leftClicks);
+                document.getElementById('left-status').className = 'status-msg active-status';
+            }
+        }
+
+        // Right Click
+        function handleRightClick(e) {
+            e.preventDefault();
+            if (rightClicks >= 5) return;
+            rightClicks++;
+            document.getElementById('right-counter').textContent = rightClicks + ' / 5';
+            document.getElementById('right-progress').style.width = (rightClicks / 5 * 100) + '%';
+            if (rightClicks >= 5) {
+                document.getElementById('right-status').textContent = '✓ Wszystkie 5 prawych kliknięć zarejestrowanych pomyślnie!';
+                document.getElementById('right-status').className = 'status-msg success';
+            } else {
+                document.getElementById('right-status').textContent = 'Kliknięcie ' + rightClicks + ' zarejestrowane — pozostało ' + (5 - rightClicks);
+                document.getElementById('right-status').className = 'status-msg active-status';
+            }
+        }
+
+        // Middle Click
+        function handleMiddleClick(e) {
+            if (e.button !== 1) return;
+            e.preventDefault();
+            if (middleClicks >= 5) return;
+            middleClicks++;
+            document.getElementById('middle-counter').textContent = middleClicks + ' / 5';
+            document.getElementById('middle-progress').style.width = (middleClicks / 5 * 100) + '%';
+            if (middleClicks >= 5) {
+                document.getElementById('middle-status').textContent = '✓ Wszystkie 5 środkowych kliknięć zarejestrowanych pomyślnie!';
+                document.getElementById('middle-status').className = 'status-msg success';
+            } else {
+                document.getElementById('middle-status').textContent = 'Kliknięcie ' + middleClicks + ' zarejestrowane — pozostało ' + (5 - middleClicks);
+                document.getElementById('middle-status').className = 'status-msg active-status';
+            }
+        }
+
+        // Scroll
+        function handleScroll(e) {
+            e.preventDefault();
+            let indicator = document.getElementById('scroll-indicator');
+
+            if (e.deltaY < 0) {
+                scrollAccumulator -= e.deltaY;
+                if (scrollAccumulator >= scrollThreshold && scrollUpCount < 3) {
+                    scrollUpCount++;
+                    scrollAccumulator = 0;
+                    document.getElementById('scroll-up-count').textContent = scrollUpCount;
+                    indicator.style.transform = 'rotate(-30deg)';
+                    setTimeout(function(){ indicator.style.transform = ''; }, 200);
+                }
+            } else {
+                scrollAccumulator += e.deltaY;
+                if (scrollAccumulator >= scrollThreshold && scrollDownCount < 3) {
+                    scrollDownCount++;
+                    scrollAccumulator = 0;
+                    document.getElementById('scroll-down-count').textContent = scrollDownCount;
+                    indicator.style.transform = 'rotate(30deg)';
+                    setTimeout(function(){ indicator.style.transform = ''; }, 200);
+                }
+            }
+
+            let total = scrollUpCount + scrollDownCount;
+            document.getElementById('scroll-progress').style.width = (total / 6 * 100) + '%';
+
+            if (scrollUpCount >= 3 && scrollDownCount >= 3) {
+                document.getElementById('scroll-status').textContent = '✓ Wszystkie cykle przewijania ukończone pomyślnie!';
+                document.getElementById('scroll-status').className = 'status-msg success';
+            } else {
+                document.getElementById('scroll-status').textContent = 'Przewijanie — góra: ' + scrollUpCount + '/3, dół: ' + scrollDownCount + '/3';
+                document.getElementById('scroll-status').className = 'status-msg active-status';
+            }
+        }
+
+        // Drag
+        let isDragging = false;
+        let dragStartX, dragStartY, dragDistanceTotal;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let dragBox = document.getElementById('drag-box');
+            let dragContainer = document.getElementById('drag-container');
+
+            dragBox.addEventListener('mousedown', function(e) {
+                if (dragCount >= 2) return;
+                isDragging = true;
+                dragDistanceTotal = 0;
+                dragBox.style.cursor = 'grabbing';
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                let containerRect = dragContainer.getBoundingClientRect();
+                let newX = Math.max(0, Math.min(containerRect.width - 70, e.clientX - containerRect.left - 35));
+                let newY = Math.max(0, Math.min(containerRect.height - 70, e.clientY - containerRect.top - 35));
+
+                let dx = e.movementX || 0;
+                let dy = e.movementY || 0;
+                dragDistanceTotal += Math.sqrt(dx * dx + dy * dy);
+
+                dragBox.style.left = newX + 'px';
+                dragBox.style.top = newY + 'px';
+                dragBox.style.transform = 'none';
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (!isDragging) return;
+                isDragging = false;
+                dragBox.style.cursor = 'grab';
+
+                if (dragDistanceTotal > 50) {
+                    dragCount++;
+                    document.getElementById('drag-count').textContent = dragCount;
+                    document.getElementById('drag-progress').style.width = (dragCount / 2 * 100) + '%';
+
+                    if (dragCount >= 2) {
+                        document.getElementById('drag-status').textContent = '✓ Oba testy przeciągania ukończone pomyślnie!';
+                        document.getElementById('drag-status').className = 'status-msg success';
+                    } else {
+                        document.getElementById('drag-status').textContent = 'Przeciągnięcie ' + dragCount + ' ukończone — pozostało ' + (2 - dragCount);
+                        document.getElementById('drag-status').className = 'status-msg active-status';
+                    }
+                }
+            });
+        });
+
+        // Prevent middle click auto-scroll
+        document.addEventListener('mousedown', function(e) {
+            if (e.button === 1) e.preventDefault();
+        });
+
+        // Reset
+        function resetTest(type) {
+            switch(type) {
+                case 'left':
+                    leftClicks = 0;
+                    document.getElementById('left-counter').textContent = '0 / 5';
+                    document.getElementById('left-progress').style.width = '0%';
+                    document.getElementById('left-status').textContent = 'Gotowe — kliknij lewym 5 razy w obszarze powyżej';
+                    document.getElementById('left-status').className = 'status-msg';
+                    break;
+                case 'right':
+                    rightClicks = 0;
+                    document.getElementById('right-counter').textContent = '0 / 5';
+                    document.getElementById('right-progress').style.width = '0%';
+                    document.getElementById('right-status').textContent = 'Gotowe — kliknij prawym 5 razy w obszarze powyżej';
+                    document.getElementById('right-status').className = 'status-msg';
+                    break;
+                case 'scroll':
+                    scrollUpCount = 0;
+                    scrollDownCount = 0;
+                    scrollAccumulator = 0;
+                    document.getElementById('scroll-up-count').textContent = '0';
+                    document.getElementById('scroll-down-count').textContent = '0';
+                    document.getElementById('scroll-progress').style.width = '0%';
+                    document.getElementById('scroll-status').textContent = 'Gotowe — przewiń 3× w górę i 3× w dół w obszarze powyżej';
+                    document.getElementById('scroll-status').className = 'status-msg';
+                    break;
+                case 'middle':
+                    middleClicks = 0;
+                    document.getElementById('middle-counter').textContent = '0 / 5';
+                    document.getElementById('middle-progress').style.width = '0%';
+                    document.getElementById('middle-status').textContent = 'Gotowe — naciśnij kółko przewijania 5× w obszarze powyżej';
+                    document.getElementById('middle-status').className = 'status-msg';
+                    break;
+                case 'drag':
+                    dragCount = 0;
+                    document.getElementById('drag-count').textContent = '0';
+                    document.getElementById('drag-progress').style.width = '0%';
+                    document.getElementById('drag-status').textContent = 'Gotowe — kliknij i przeciągnij box, przesuń go i puść. Powtórz 2×.';
+                    document.getElementById('drag-status').className = 'status-msg';
+                    let box = document.getElementById('drag-box');
+                    box.style.left = '50%';
+                    box.style.top = '65px';
+                    box.style.transform = 'translateX(-50%)';
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
+
