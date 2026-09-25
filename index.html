@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -249,6 +250,147 @@
             color: #c9d1d9;
         }
         .btn-reset:hover { background: #3d444d; }
+        .btn-issue {
+            background: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #484f58;
+        }
+        .btn-issue:hover {
+            background: #30363d;
+            border-color: #6e7681;
+            color: #fff;
+        }
+
+        /* Failure confirmation — hidden until the associate asks for it */
+        .fail-confirm {
+            display: none;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #484f58;
+            border-radius: 8px;
+            background: #161b22;
+        }
+        .fail-confirm.visible { display: block; }
+        .fail-confirm p {
+            color: #c9d1d9;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .fail-confirm-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .fail-confirm-actions .btn { flex: 1; }
+
+
+        /* Scroll applicability */
+        .scroll-guidance {
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            border-radius: 8px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .scroll-guidance strong { color: #fff; }
+        .scroll-start-label {
+            margin-top: 8px;
+            color: #e6edf3;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+        }
+        .scroll-na-confirm {
+            display: none;
+            padding: 14px;
+            margin-bottom: 14px;
+            border: 1px solid #1f6feb;
+            border-radius: 8px;
+            background: #0b1628;
+            text-align: center;
+        }
+        .scroll-na-confirm.visible { display: block; }
+        .scroll-na-confirm p {
+            color: #c9d1d9;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .scroll-na-confirm .btn { width: 100%; }
+
+        /* Middle Click Applicability */
+        .middle-choice {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .middle-choice button {
+            min-height: 74px;
+            padding: 12px;
+            border: 2px solid #30363d;
+            border-radius: 10px;
+            background: #0d1117;
+            color: #e6edf3;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            line-height: 1.35;
+        }
+        .middle-choice button:hover { border-color: #58a6ff; }
+        .middle-choice button.selected {
+            border-color: #58a6ff;
+            background: #0b1628;
+        }
+        .middle-guidance {
+            padding: 12px 14px;
+            margin-bottom: 14px;
+            border-radius: 8px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .middle-guidance strong { color: #fff; }
+        .middle-test-body.hidden { display: none; }
+        .status-msg.skipped {
+            background: #0b1628;
+            border-color: #1f6feb;
+            color: #58a6ff;
+            font-weight: 700;
+        }
+        .status-msg.fail-status {
+            background: #2a0f0f;
+            border-color: #da3633;
+            color: #ff7b72;
+            font-weight: 700;
+        }
+        .middle-na-confirm {
+            display: none;
+            padding: 14px;
+            margin-bottom: 14px;
+            border: 1px solid #1f6feb;
+            border-radius: 8px;
+            background: #0b1628;
+            text-align: center;
+        }
+        .middle-na-confirm.visible { display: block; }
+        .middle-na-confirm p {
+            color: #c9d1d9;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .middle-na-confirm .btn { width: 100%; }
+
+        @media (max-width: 520px) {
+            .middle-choice { grid-template-columns: 1fr; }
+            .fail-confirm-actions { flex-direction: column; }
+        }
 
         /* Status Message */
         .status-msg {
@@ -288,6 +430,43 @@
             width: 0%;
         }
 
+
+
+        /* Reset all / next unit */
+        .reset-all-section {
+            margin: 20px 16px 8px;
+            padding: 18px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .btn-reset-all {
+            width: 100%;
+            padding: 16px 18px;
+            background: #1f6feb;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 0.2px;
+        }
+        .btn-reset-all:hover:not(:disabled) { background: #388bfd; }
+        .btn-reset-all:disabled {
+            background: #30363d;
+            color: #8b949e;
+            cursor: not-allowed;
+            opacity: 0.75;
+        }
+        .reset-all-note {
+            margin-top: 9px;
+            color: #8b949e;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -305,7 +484,7 @@
     <nav class="tab-nav">
         <a href="#test-1">1. Lewy klik</a>
         <a href="#test-2">2. Prawy klik</a>
-        <a href="#test-3">3. Scroll</a>
+        <a href="#test-3">3. Przewijanie</a>
         <a href="#test-4">4. Środkowy</a>
         <a href="#test-5">5. Przeciąganie</a>
     </nav>
@@ -313,140 +492,232 @@
     <!-- Header -->
     <div class="header">
         <h1>  ️ Szybki test myszy</h1>
-        <p>5 podstawowych testów do weryfikacji działania myszy</p>
+        <p>5 podstawowych testów sprawdzających działanie myszy</p>
     </div>
 
     <!-- Warning -->
     <div class="warning">
-        ⚠️ Połóż mysz na płaskiej, czystej powierzchni. Upewnij się, że mysz jest włączona (bezprzewodowa) lub prawidłowo podłączona (przewodowa).
+        ⚠️ Połóż mysz na płaskiej, czystej powierzchni. Upewnij się, że jest włączona (bezprzewodowa) lub prawidłowo podłączona (przewodowa).
     </div>
 
     <!-- TEST 1: Left Click -->
     <section class="test-section" id="test-1">
         <h2 class="test-title">1. Test lewego przycisku</h2>
-        <p class="test-desc">Wykonaj 5 kliknięć w obszarze docelowym. Podczas klikania sprawdź, czy przycisk się nie zacina, nie ma złamanych zawiasów i reaguje w aplikacji.</p>
+        <p class="test-desc">Wykonaj 5 kliknięć w wyznaczonym obszarze. Sprawdź, czy przycisk się nie zacina, nie jest uszkodzony ani luźny i czy reaguje w aplikacji.</p>
 
         <div class="criteria">
-            <div class="criteria-pass">✔ PASS: Wszystkie 5 kliknięć zostaje zarejestrowanych, przycisk wraca czysto, nie zacina się ani nie chwieje</div>
-            <div class="criteria-fail">✘ FAIL: Niezarejestrowane kliknięcia, przycisk się zacina, jest luźny/złamany, podwójne kliknięcie przy jednym naciśnięciu</div>
+            <div class="criteria-pass">✔ PASS: Wszystkie 5 kliknięć jest rejestrowanych, przycisk wraca prawidłowo, nie zacina się ani nie chwieje</div>
+            <div class="criteria-fail">✘ FAIL: Kliknięcia nie są rejestrowane, przycisk się zacina, jest luźny/uszkodzony albo pojedyncze naciśnięcie powoduje podwójny klik</div>
         </div>
 
         <div class="progress-bar"><div class="progress-fill" id="left-progress"></div></div>
 
         <div class="click-area" id="left-click-area" onmousedown="handleLeftClick(event)">
             <div class="counter" id="left-counter">0 / 5</div>
-            <div class="label">Kliknij lewym tutaj</div>
+            <div class="label">Kliknij tutaj lewym przyciskiem</div>
         </div>
 
         <div class="btn-row">
-            <button class="btn btn-reset" onclick="resetTest('left')">↺ Reset</button>
+            <button class="btn btn-issue" type="button" onclick="showFailConfirm('left')">Nie możesz ukończyć testu?</button>
+        </div>
+        <div class="fail-confirm" id="left-fail-confirm">
+            <p><strong>Oznacz FAIL tylko wtedy, gdy sam przycisk myszy jest uszkodzony.</strong> Przykłady: kliknięcia nie są rejestrowane, przycisk się zacina lub jest uszkodzony/luźny albo jedno naciśnięcie powoduje niechciany podwójny klik. W razie wątpliwości wróć do testu i spróbuj ponownie.</p>
+            <div class="fail-confirm-actions">
+                <button class="btn btn-reset" type="button" onclick="hideFailConfirm('left')">WRÓĆ DO TESTU</button>
+                <button class="btn btn-stop" type="button" onclick="markLeftFail()">POTWIERDŹ FAIL — LEWY PRZYCISK</button>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-reset" onclick="resetTest('left')">↺ Resetuj</button>
         </div>
 
-        <div class="status-msg" id="left-status">Gotowe — kliknij lewym 5 razy w obszarze powyżej</div>
+        <div class="status-msg" id="left-status">Gotowe — kliknij lewym przyciskiem 5 razy w obszarze powyżej</div>
     </section>
 
     <!-- TEST 2: Right Click -->
     <section class="test-section" id="test-2">
         <h2 class="test-title">2. Test prawego przycisku</h2>
-        <p class="test-desc">Wykonaj 5 kliknięć prawym przyciskiem w obszarze docelowym. Podczas klikania sprawdź, czy przycisk się nie zacina, nie ma złamanych zawiasów i reaguje w aplikacji.</p>
+        <p class="test-desc">Wykonaj 5 kliknięć prawym przyciskiem w wyznaczonym obszarze. Sprawdź, czy przycisk się nie zacina, nie jest uszkodzony ani luźny i czy reaguje w aplikacji.</p>
 
         <div class="criteria">
-            <div class="criteria-pass">✔ PASS: Wszystkie 5 kliknięć zostaje zarejestrowanych, przycisk wraca czysto, nie zacina się ani nie chwieje</div>
-            <div class="criteria-fail">✘ FAIL: Niezarejestrowane kliknięcia, przycisk się zacina, jest luźny/złamany, lub problemy z menu kontekstowym</div>
+            <div class="criteria-pass">✔ PASS: Wszystkie 5 kliknięć jest rejestrowanych, przycisk wraca prawidłowo, nie zacina się ani nie chwieje</div>
+            <div class="criteria-fail">✘ FAIL: Kliknięcia nie są rejestrowane, przycisk się zacina, jest luźny/uszkodzony albo prawy klik działa nieprawidłowo</div>
         </div>
 
         <div class="progress-bar"><div class="progress-fill" id="right-progress"></div></div>
 
         <div class="click-area right-click" id="right-click-area" oncontextmenu="handleRightClick(event)">
             <div class="counter" id="right-counter">0 / 5</div>
-            <div class="label">Kliknij prawym tutaj</div>
+            <div class="label">Kliknij tutaj prawym przyciskiem</div>
         </div>
 
         <div class="btn-row">
-            <button class="btn btn-reset" onclick="resetTest('right')">↺ Reset</button>
+            <button class="btn btn-issue" type="button" onclick="showFailConfirm('right')">Nie możesz ukończyć testu?</button>
+        </div>
+        <div class="fail-confirm" id="right-fail-confirm">
+            <p><strong>Oznacz FAIL tylko wtedy, gdy sam przycisk myszy jest uszkodzony.</strong> Przykłady: kliknięcia prawym przyciskiem nie są rejestrowane, przycisk się zacina lub jest uszkodzony/luźny albo działa nieprawidłowo. W razie wątpliwości wróć do testu i spróbuj ponownie.</p>
+            <div class="fail-confirm-actions">
+                <button class="btn btn-reset" type="button" onclick="hideFailConfirm('right')">WRÓĆ DO TESTU</button>
+                <button class="btn btn-stop" type="button" onclick="markRightFail()">POTWIERDŹ FAIL — PRAWY PRZYCISK</button>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-reset" onclick="resetTest('right')">↺ Resetuj</button>
         </div>
 
-        <div class="status-msg" id="right-status">Gotowe — kliknij prawym 5 razy w obszarze powyżej</div>
+        <div class="status-msg" id="right-status">Gotowe — kliknij prawym przyciskiem 5 razy w obszarze powyżej</div>
     </section>
 
-    <!-- TEST 3: Scroll Wheel -->
+    <!-- TEST 3: Scroll -->
     <section class="test-section" id="test-3">
-        <h2 class="test-title">3. Test kółka przewijania</h2>
-        <p class="test-desc">Sprawdź, czy kółko przewijania jest wycentrowane, nie ociera się i obraca się swobodnie z wyczuwalnymi krokami (jeśli dotyczy). Przewiń w górę i w dół 3 razy i zweryfikuj reakcję w aplikacji.</p>
+        <h2 class="test-title">3. Test przewijania</h2>
+        <p class="test-desc"><strong>Umieść wskaźnik w polu poniżej i przewijaj.</strong> Użyj normalnego mechanizmu przewijania myszy — fizycznego kółka lub powierzchni dotykowej. Test uruchomi się automatycznie.</p>
+
+        <div class="scroll-guidance">
+            <strong>Kółko i przewijanie dotykowe są prawidłowe.</strong> Nie oznaczaj FAIL tylko dlatego, że mysz nie ma fizycznego kółka. Oznacz FAIL wyłącznie wtedy, gdy mysz jest zaprojektowana do przewijania, ale przewijanie nie działa prawidłowo.
+        </div>
 
         <div class="criteria">
-            <div class="criteria-pass">✔ PASS: Kółko wycentrowane, płynna rotacja z równomiernymi krokami, wszystkie przewinięcia zarejestrowane</div>
-            <div class="criteria-fail">✘ FAIL: Kółko ociera się, nierównomierne/brakujące kroki, przeskakiwanie, lub brak rejestracji</div>
+            <div class="criteria-pass">✔ PASS: Przewijanie jest rejestrowane w obu kierunkach i działa prawidłowo</div>
+            <div class="criteria-fail">✘ FAIL: Mechanizm przewijania jest obecny, ale przewijanie nie jest rejestrowane, mocno przeskakuje lub działa w złym kierunku</div>
         </div>
 
         <div class="progress-bar"><div class="progress-fill" id="scroll-progress"></div></div>
 
         <div class="scroll-area" id="scroll-area" onwheel="handleScroll(event)">
-            <div class="scroll-indicator" id="scroll-indicator">⟳</div>
+            <div class="scroll-indicator" id="scroll-indicator">↕</div>
+            <div class="scroll-start-label" id="scroll-start-label">PRZEWIJAJ TUTAJ — KÓŁKO LUB DOTYK</div>
             <div class="scroll-stats">
                 <span>↑ Góra: <span class="value" id="scroll-up-count">0</span> / 3</span>
                 <span>↓ Dół: <span class="value" id="scroll-down-count">0</span> / 3</span>
             </div>
         </div>
 
-        <div class="btn-row">
-            <button class="btn btn-reset" onclick="resetTest('scroll')">↺ Reset</button>
+        <div class="scroll-na-confirm" id="scroll-na-confirm">
+            <p><strong>Potwierdź N/A:</strong> ten model nie ma żadnego mechanizmu przewijania — ani kółka, ani powierzchni dotykowej. Jeśli jest zaprojektowany do przewijania, ale ono nie działa, wróć i oznacz FAIL.</p>
+            <button class="btn btn-start" type="button" onclick="confirmScrollNA()">POTWIERDŹ N/A — BRAK FUNKCJI PRZEWIJANIA</button>
         </div>
 
-        <div class="status-msg" id="scroll-status">Gotowe — przewiń 3× w górę i 3× w dół w obszarze powyżej</div>
+        <div class="btn-row">
+            <button class="btn btn-issue" type="button" onclick="showFailConfirm('scroll')">Nie możesz ukończyć testu?</button>
+            <button class="btn btn-reset" type="button" onclick="setScrollMode('skip')">BRAK FUNKCJI PRZEWIJANIA ZGODNIE Z PROJEKTEM</button>
+        </div>
+
+        <div class="fail-confirm" id="scroll-fail-confirm">
+            <p><strong>Oznacz FAIL tylko wtedy, gdy mysz jest zaprojektowana do przewijania, mechanizm przewijania jest obecny, ale nie działa prawidłowo.</strong> Jeśli ten model zgodnie z projektem nie ma żadnej funkcji przewijania, wybierz „Brak funkcji przewijania zgodnie z projektem”.</p>
+            <div class="fail-confirm-actions">
+                <button class="btn btn-reset" type="button" onclick="hideFailConfirm('scroll')">WRÓĆ DO TESTU</button>
+                <button class="btn btn-stop" type="button" onclick="markScrollFail()">POTWIERDŹ FAIL — PRZEWIJANIE</button>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-reset" onclick="resetTest('scroll')">↺ Resetujuj / Zmień wybór</button>
+        </div>
+
+        <div class="status-msg" id="scroll-status">Gotowe — umieść wskaźnik w polu i przewijaj w górę i w dół</div>
     </section>
 
     <!-- TEST 4: Middle Click -->
     <section class="test-section" id="test-4">
-        <h2 class="test-title">4. Środkowy klik (klik kółkiem)</h2>
-        <p class="test-desc">Jeśli jest obecny, wykonaj 5 kliknięć naciskając kółko przewijania. Sprawdź, czy reaguje w aplikacji.</p>
+        <h2 class="test-title">4. Test środkowego przycisku</h2>
+        <p class="test-desc"><strong>Najpierw sprawdź samą mysz.</strong> Wybierz opcję odpowiadającą mechanizmowi przewijania.</p>
 
-        <div class="criteria">
-            <div class="criteria-pass">✔ PASS: Wszystkie 5 kliknięć zarejestrowanych, kółko klika z wyraźnym dotykowym sprzężeniem zwrotnym</div>
-            <div class="criteria-fail">✘ FAIL: Kliknięcia się nie rejestrują, przycisk jest miękki/niereagujący, lub przewija zamiast klikać</div>
+        <div class="middle-guidance">
+            <strong>Ważne:</strong> Zwykłe kółko, które powinno dać się nacisnąć, ale nie działa, oznacza <strong>FAIL</strong>.
+            Wybierz „Brak wciskanego środkowego przycisku” tylko wtedy, gdy mysz została zaprojektowana bez wciskanego kółka/przycisku, np. z powierzchnią dotykową.
         </div>
 
-        <div class="progress-bar"><div class="progress-fill" id="middle-progress"></div></div>
+        <div class="middle-choice" id="middle-choice">
+            <button type="button" id="middle-has-button" onclick="setMiddleMode('test')" onmousedown="handleMiddleChoiceMouseDown(event)">
+                🖱️ MA WCISKANY ŚRODKOWY PRZYCISK<br><span style="font-weight:400;color:#8b949e;">Wybierz lewym lub środkowym kliknięciem</span>
+            </button>
+            <button type="button" id="middle-no-button" onclick="setMiddleMode('skip')">
+                ☝️ PRZEWIJANIE DOTYKOWE / BRAK WCISKANEGO PRZYCISKU<br><span style="font-weight:400;color:#8b949e;">Ten test nie ma zastosowania</span>
+            </button>
+        </div>
 
-        <div class="click-area middle-click" id="middle-click-area" onmousedown="handleMiddleClick(event)">
-            <div class="counter" id="middle-counter">0 / 5</div>
-            <div class="label">Środkowy klik (naciśnij kółko) tutaj</div>
+        <div class="middle-na-confirm" id="middle-na-confirm">
+            <p><strong>Potwierdź N/A:</strong> nie ma fizycznego kółka ani środkowego przycisku, który można nacisnąć. Jeśli istnieje wciskane kółko, ale nie działa, wróć i je przetestuj.</p>
+            <button class="btn btn-start" type="button" onclick="confirmMiddleNA()">POTWIERDŹ N/A — BRAK PRZYCISKU</button>
+        </div>
+
+        <div class="middle-test-body hidden" id="middle-test-body">
+            <div class="criteria">
+                <div class="criteria-pass">✔ PASS: Wszystkie 5 środkowych kliknięć jest rejestrowanych, a przycisk ma wyraźne wyczuwalne kliknięcie</div>
+                <div class="criteria-fail">✘ FAIL: Środkowy przycisk jest obecny, ale kliknięcia nie są rejestrowane, przycisk jest miękki/nie reaguje albo przewija zamiast klikać</div>
+            </div>
+
+            <div class="progress-bar"><div class="progress-fill" id="middle-progress"></div></div>
+
+            <div class="click-area middle-click" id="middle-click-area" onmousedown="handleMiddleClick(event)">
+                <div class="counter" id="middle-counter">0 / 5</div>
+                <div class="label">Naciśnij tutaj kółko / środkowy przycisk</div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-issue" type="button" onclick="showFailConfirm('middle')">Nie możesz ukończyć testu?</button>
+            </div>
+            <div class="fail-confirm" id="middle-fail-confirm">
+                <p><strong>Oznacz FAIL tylko wtedy, gdy istnieje wciskany środkowy przycisk, ale nie działa prawidłowo.</strong> Jeśli ta mysz jest zaprojektowana bez wciskanego środkowego przycisku, użyj Resetuj / Zmień wybór i wybierz „Przewijanie dotykowe / brak wciskanego przycisku”.</p>
+                <div class="fail-confirm-actions">
+                    <button class="btn btn-reset" type="button" onclick="hideFailConfirm('middle')">WRÓĆ DO TESTU</button>
+                    <button class="btn btn-stop" type="button" onclick="markMiddleFail()">POTWIERDŹ FAIL — ŚRODKOWY PRZYCISK</button>
+                </div>
+            </div>
         </div>
 
         <div class="btn-row">
-            <button class="btn btn-reset" onclick="resetTest('middle')">↺ Reset</button>
+            <button class="btn btn-reset" onclick="resetTest('middle')">↺ Resetujuj / Zmień wybór</button>
         </div>
 
-        <div class="status-msg" id="middle-status">Gotowe — naciśnij kółko przewijania 5× w obszarze powyżej</div>
+        <div class="status-msg" id="middle-status">Wybierz jedną z opcji powyżej przed kontynuowaniem</div>
     </section>
 
     <!-- TEST 5: Drag Test -->
     <section class="test-section" id="test-5">
         <h2 class="test-title">5. Test przeciągania</h2>
-        <p class="test-desc">Wykonaj test przeciągania przesuwając box 2 razy. Kliknij, przytrzymaj, przesuń i puść.</p>
+        <p class="test-desc">Wykonaj test, przeciągając pole 2 razy. Kliknij, przytrzymaj, przesuń i puść.</p>
 
         <div class="criteria">
-            <div class="criteria-pass">✔ PASS: Box płynnie podąża za kursorem, czysto się puszcza, 2 przeciągnięcia ukończone</div>
-            <div class="criteria-fail">✘ FAIL: Box upada podczas przeciągania, zacina się, lub nie podąża za kursorem</div>
+            <div class="criteria-pass">✔ PASS: Pole płynnie podąża za kursorem, poprawnie się zwalnia i wykonano 2 przeciągnięcia</div>
+            <div class="criteria-fail">✘ FAIL: Pole puszcza się podczas przeciągania, zacina się lub nie podąża za kursorem</div>
         </div>
 
         <div class="progress-bar"><div class="progress-fill" id="drag-progress"></div></div>
 
         <div class="drag-container" id="drag-container">
-            <div class="drag-box" id="drag-box">Przeciągnij</div>
+            <div class="drag-box" id="drag-box">Przeciągnij mnie</div>
             <div class="drag-info">Ukończone przeciągnięcia: <span class="value" id="drag-count">0</span> / 2</div>
         </div>
 
         <div class="btn-row">
-            <button class="btn btn-reset" onclick="resetTest('drag')">↺ Reset</button>
+            <button class="btn btn-issue" type="button" onclick="showFailConfirm('drag')">Nie możesz ukończyć testu?</button>
+        </div>
+        <div class="fail-confirm" id="drag-fail-confirm">
+            <p><strong>Oznacz FAIL tylko wtedy, gdy po wykonaniu próby kliknięcie z przytrzymaniem lub przeciąganie nie działa niezawodnie.</strong> Przykłady: pole puszcza się, mimo że przycisk jest nadal wciśnięty, przeciąganie wielokrotnie się zatrzymuje albo nie da się utrzymać przeciągania.</p>
+            <div class="fail-confirm-actions">
+                <button class="btn btn-reset" type="button" onclick="hideFailConfirm('drag')">WRÓĆ DO TESTU</button>
+                <button class="btn btn-stop" type="button" onclick="markDragFail()">POTWIERDŹ FAIL — PRZECIĄGANIE / PRZYTRZYMANIE</button>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-reset" onclick="resetTest('drag')">↺ Resetuj</button>
         </div>
 
-        <div class="status-msg" id="drag-status">Gotowe — kliknij i przeciągnij box, przesuń go i puść. Powtórz 2×.</div>
+        <div class="status-msg" id="drag-status">Gotowe — kliknij i przeciągnij pole, przesuń je i puść. Powtórz 2 razy.</div>
+    </section>
+
+
+    <!-- RESET ALL -->
+    <section class="reset-all-section">
+        <button class="btn-reset-all" id="reset-all-button" onclick="resetAll()" disabled>UKOŃCZ WSZYSTKIE TESTY, ABY ROZPOCZĄĆ NASTĘPNĄ MYSZ</button>
+        <div class="reset-all-note" id="reset-all-note">0 / 5 testów ukończonych. PASS, FAIL i potwierdzone N/A są liczone jako ukończenie.</div>
     </section>
 
     <!-- Footer -->
     <div class="footer">
-        Szybki test myszy v1.0 | 5 testów | Żadne dane nie są zbierane
+        Szybki test myszy v1.0 | 5 testów | Dane nie są zbierane
     </div>
 
     <script>
@@ -454,46 +725,162 @@
         let leftClicks = 0;
         let rightClicks = 0;
         let middleClicks = 0;
+        let middleMode = null;
+        let scrollMode = null;
         let scrollUpCount = 0;
         let scrollDownCount = 0;
         let dragCount = 0;
         let scrollAccumulator = 0;
         let scrollThreshold = 80;
 
+        // A test is complete only after a terminal result: PASS, FAIL, or confirmed N/A.
+        let testResults = {
+            left: null,
+            right: null,
+            scroll: null,
+            middle: null,
+            drag: null
+        };
+
+        function setTestResult(test, result) {
+            testResults[test] = result;
+            updateNextMouseButton();
+        }
+
+        function showFailConfirm(test) {
+            const panel = document.getElementById(test + '-fail-confirm');
+            if (panel) panel.classList.add('visible');
+        }
+
+        function hideFailConfirm(test) {
+            const panel = document.getElementById(test + '-fail-confirm');
+            if (panel) panel.classList.remove('visible');
+        }
+
+        function updateNextMouseButton() {
+            const completed = Object.values(testResults).filter(Boolean).length;
+            const button = document.getElementById('reset-all-button');
+            const note = document.getElementById('reset-all-note');
+            const allComplete = completed === 5;
+
+            button.disabled = !allComplete;
+            button.textContent = allComplete
+                ? "↺ WSZYSTKIE TESTY UKOŃCZONE — ROZPOCZNIJ NASTĘPNĄ MYSZ"
+                : "UKOŃCZ WSZYSTKIE TESTY, ABY ROZPOCZĄĆ NASTĘPNĄ MYSZ";
+            note.textContent = allComplete
+                ? "Gotowe na następną mysz. Wszystkie wyniki zostaną wyczyszczone i nastąpi powrót do Testu 1."
+                : completed + " / 5 testów ukończonych. PASS, FAIL i potwierdzone N/A są liczone jako ukończenie.";
+        }
+
         // Left Click
         function handleLeftClick(e) {
             if (e.button !== 0) return;
+            hideFailConfirm('left');
             if (leftClicks >= 5) return;
             leftClicks++;
             document.getElementById('left-counter').textContent = leftClicks + ' / 5';
             document.getElementById('left-progress').style.width = (leftClicks / 5 * 100) + '%';
             if (leftClicks >= 5) {
-                document.getElementById('left-status').textContent = '✓ Wszystkie 5 lewych kliknięć zarejestrowanych pomyślnie!';
+                document.getElementById('left-status').textContent = "✓ Wszystkie 5 kliknięć lewym przyciskiem zostało prawidłowo zarejestrowanych!";
                 document.getElementById('left-status').className = 'status-msg success';
+                setTestResult('left', 'pass');
             } else {
-                document.getElementById('left-status').textContent = 'Kliknięcie ' + leftClicks + ' zarejestrowane — pozostało ' + (5 - leftClicks);
+                document.getElementById('left-status').textContent = "Zarejestrowane kliknięcia: " + leftClicks + " — pozostało: " + (5 - leftClicks) + "";
                 document.getElementById('left-status').className = 'status-msg active-status';
             }
+        }
+
+        function markLeftFail() {
+            hideFailConfirm('left');
+            document.getElementById('left-status').textContent = "✘ FAIL — lewy przycisk nie działa prawidłowo. Oznacz produkt jako uszkodzony.";
+            document.getElementById('left-status').className = 'status-msg fail-status';
+            setTestResult('left', 'fail');
         }
 
         // Right Click
         function handleRightClick(e) {
             e.preventDefault();
+            hideFailConfirm('right');
             if (rightClicks >= 5) return;
             rightClicks++;
             document.getElementById('right-counter').textContent = rightClicks + ' / 5';
             document.getElementById('right-progress').style.width = (rightClicks / 5 * 100) + '%';
             if (rightClicks >= 5) {
-                document.getElementById('right-status').textContent = '✓ Wszystkie 5 prawych kliknięć zarejestrowanych pomyślnie!';
+                document.getElementById('right-status').textContent = "✓ Wszystkie 5 kliknięć prawym przyciskiem zostało prawidłowo zarejestrowanych!";
                 document.getElementById('right-status').className = 'status-msg success';
+                setTestResult('right', 'pass');
             } else {
-                document.getElementById('right-status').textContent = 'Kliknięcie ' + rightClicks + ' zarejestrowane — pozostało ' + (5 - rightClicks);
+                document.getElementById('right-status').textContent = "Zarejestrowane kliknięcia: " + rightClicks + " — pozostało: " + (5 - rightClicks) + "";
                 document.getElementById('right-status').className = 'status-msg active-status';
             }
         }
 
+        function markRightFail() {
+            hideFailConfirm('right');
+            document.getElementById('right-status').textContent = "✘ FAIL — prawy przycisk nie działa prawidłowo. Oznacz produkt jako uszkodzony.";
+            document.getElementById('right-status').className = 'status-msg fail-status';
+            setTestResult('right', 'fail');
+        }
+
         // Middle Click
+        function setMiddleMode(mode) {
+            hideFailConfirm('middle');
+            middleMode = mode;
+            setTestResult('middle', null);
+            middleClicks = 0;
+            document.getElementById('middle-counter').textContent = '0 / 5';
+            document.getElementById('middle-progress').style.width = '0%';
+
+            let testBtn = document.getElementById('middle-has-button');
+            let skipBtn = document.getElementById('middle-no-button');
+            let testBody = document.getElementById('middle-test-body');
+            let naConfirm = document.getElementById('middle-na-confirm');
+            let status = document.getElementById('middle-status');
+
+            testBtn.classList.toggle('selected', mode === 'test');
+            skipBtn.classList.toggle('selected', mode === 'skip');
+
+            if (mode === 'test') {
+                testBody.classList.remove('hidden');
+                naConfirm.classList.remove('visible');
+                status.textContent = "Test wymagany — naciśnij kółko / środkowy przycisk 5 razy w obszarze powyżej";
+                status.className = 'status-msg active-status';
+            } else {
+                testBody.classList.add('hidden');
+                naConfirm.classList.add('visible');
+                status.textContent = "Potwierdź, że ta mysz nie ma wciskanego środkowego przycisku";
+                status.className = 'status-msg active-status';
+            }
+        }
+
+        function handleMiddleChoiceMouseDown(e) {
+            if (e.button !== 1) return;
+            e.preventDefault();
+            setMiddleMode('test');
+            // The operator already proved the middle button works by using it here,
+            // so count this press as the first middle-click test event.
+            handleMiddleClick(e);
+        }
+
+        function confirmMiddleNA() {
+            if (middleMode !== 'skip') return;
+            document.getElementById('middle-na-confirm').classList.remove('visible');
+            document.getElementById('middle-status').textContent = "N/A — ta mysz nie ma wciskanego środkowego przycisku. Przejdź do Testu 5.";
+            document.getElementById('middle-status').className = 'status-msg skipped';
+            setTestResult('middle', 'na');
+        }
+
+        function markMiddleFail() {
+            if (middleMode !== 'test') return;
+            hideFailConfirm('middle');
+            document.getElementById('middle-status').textContent = "✘ FAIL — środkowy przycisk jest obecny, ale nie działa prawidłowo. Oznacz produkt jako uszkodzony.";
+            document.getElementById('middle-status').className = 'status-msg fail-status';
+            setTestResult('middle', 'fail');
+        }
+
         function handleMiddleClick(e) {
+            if (middleMode !== 'test') return;
+            hideFailConfirm('middle');
             if (e.button !== 1) return;
             e.preventDefault();
             if (middleClicks >= 5) return;
@@ -501,17 +888,61 @@
             document.getElementById('middle-counter').textContent = middleClicks + ' / 5';
             document.getElementById('middle-progress').style.width = (middleClicks / 5 * 100) + '%';
             if (middleClicks >= 5) {
-                document.getElementById('middle-status').textContent = '✓ Wszystkie 5 środkowych kliknięć zarejestrowanych pomyślnie!';
+                document.getElementById('middle-status').textContent = "✓ PASS — wszystkie 5 środkowych kliknięć zostało prawidłowo zarejestrowanych!";
                 document.getElementById('middle-status').className = 'status-msg success';
+                setTestResult('middle', 'pass');
             } else {
-                document.getElementById('middle-status').textContent = 'Kliknięcie ' + middleClicks + ' zarejestrowane — pozostało ' + (5 - middleClicks);
+                document.getElementById('middle-status').textContent = "Zarejestrowane środkowe kliknięcia: " + middleClicks + " — pozostało: " + (5 - middleClicks) + "";
                 document.getElementById('middle-status').className = 'status-msg active-status';
             }
         }
 
         // Scroll
+        function setScrollMode(mode) {
+            hideFailConfirm('scroll');
+            scrollMode = mode;
+            setTestResult('scroll', null);
+            let confirm = document.getElementById('scroll-na-confirm');
+            let status = document.getElementById('scroll-status');
+
+            if (mode === 'skip') {
+                confirm.classList.add('visible');
+                status.textContent = "Potwierdź tylko wtedy, gdy ten model zgodnie z projektem nie ma funkcji przewijania";
+                status.className = 'status-msg active-status';
+            } else {
+                confirm.classList.remove('visible');
+            }
+        }
+
+        function confirmScrollNA() {
+            if (scrollMode !== 'skip') return;
+            document.getElementById('scroll-na-confirm').classList.remove('visible');
+            document.getElementById('scroll-status').textContent = "N/A — ten model nie ma funkcji przewijania. Przejdź do Testu 4.";
+            document.getElementById('scroll-status').className = 'status-msg skipped';
+            setTestResult('scroll', 'na');
+        }
+
+        function markScrollFail() {
+            hideFailConfirm('scroll');
+            scrollMode = 'test';
+            setTestResult('scroll', null);
+            document.getElementById('scroll-na-confirm').classList.remove('visible');
+            document.getElementById('scroll-status').textContent = "✘ FAIL — mechanizm przewijania jest obecny, ale nie działa prawidłowo. Oznacz produkt jako uszkodzony.";
+            document.getElementById('scroll-status').className = 'status-msg fail-status';
+            setTestResult('scroll', 'fail');
+        }
+
         function handleScroll(e) {
             e.preventDefault();
+            hideFailConfirm('scroll');
+
+            // Any real wheel/touch-scroll event proves that a scrolling control exists.
+            // This also cancels an accidental N/A selection and starts the test immediately.
+            scrollMode = 'test';
+            setTestResult('scroll', null);
+            document.getElementById('scroll-na-confirm').classList.remove('visible');
+            document.getElementById('scroll-start-label').textContent = "WYKRYTO PRZEWIJANIE";
+
             let indicator = document.getElementById('scroll-indicator');
 
             if (e.deltaY < 0) {
@@ -520,16 +951,16 @@
                     scrollUpCount++;
                     scrollAccumulator = 0;
                     document.getElementById('scroll-up-count').textContent = scrollUpCount;
-                    indicator.style.transform = 'rotate(-30deg)';
+                    indicator.style.transform = 'translateY(-8px)';
                     setTimeout(function(){ indicator.style.transform = ''; }, 200);
                 }
-            } else {
+            } else if (e.deltaY > 0) {
                 scrollAccumulator += e.deltaY;
                 if (scrollAccumulator >= scrollThreshold && scrollDownCount < 3) {
                     scrollDownCount++;
                     scrollAccumulator = 0;
                     document.getElementById('scroll-down-count').textContent = scrollDownCount;
-                    indicator.style.transform = 'rotate(30deg)';
+                    indicator.style.transform = 'translateY(8px)';
                     setTimeout(function(){ indicator.style.transform = ''; }, 200);
                 }
             }
@@ -538,10 +969,11 @@
             document.getElementById('scroll-progress').style.width = (total / 6 * 100) + '%';
 
             if (scrollUpCount >= 3 && scrollDownCount >= 3) {
-                document.getElementById('scroll-status').textContent = '✓ Wszystkie cykle przewijania ukończone pomyślnie!';
+                document.getElementById('scroll-status').textContent = "✓ PASS — przewijanie działa w obu kierunkach!";
                 document.getElementById('scroll-status').className = 'status-msg success';
+                setTestResult('scroll', 'pass');
             } else {
-                document.getElementById('scroll-status').textContent = 'Przewijanie — góra: ' + scrollUpCount + '/3, dół: ' + scrollDownCount + '/3';
+                document.getElementById('scroll-status').textContent = "Wykryto przewijanie — góra: " + scrollUpCount + "/3, dół: " + scrollDownCount + '/3';
                 document.getElementById('scroll-status').className = 'status-msg active-status';
             }
         }
@@ -556,6 +988,7 @@
 
             dragBox.addEventListener('mousedown', function(e) {
                 if (dragCount >= 2) return;
+                hideFailConfirm('drag');
                 isDragging = true;
                 dragDistanceTotal = 0;
                 dragBox.style.cursor = 'grabbing';
@@ -588,15 +1021,23 @@
                     document.getElementById('drag-progress').style.width = (dragCount / 2 * 100) + '%';
 
                     if (dragCount >= 2) {
-                        document.getElementById('drag-status').textContent = '✓ Oba testy przeciągania ukończone pomyślnie!';
+                        document.getElementById('drag-status').textContent = "✓ Oba testy przeciągania ukończono prawidłowo!";
                         document.getElementById('drag-status').className = 'status-msg success';
+                        setTestResult('drag', 'pass');
                     } else {
-                        document.getElementById('drag-status').textContent = 'Przeciągnięcie ' + dragCount + ' ukończone — pozostało ' + (2 - dragCount);
+                        document.getElementById('drag-status').textContent = "Ukończone przeciągnięcia: " + dragCount + " — pozostało: " + (2 - dragCount) + "";
                         document.getElementById('drag-status').className = 'status-msg active-status';
                     }
                 }
             });
         });
+
+        function markDragFail() {
+            hideFailConfirm('drag');
+            document.getElementById('drag-status').textContent = "✘ FAIL — kliknięcie z przytrzymaniem / przeciąganie nie działa prawidłowo. Oznacz produkt jako uszkodzony.";
+            document.getElementById('drag-status').className = 'status-msg fail-status';
+            setTestResult('drag', 'fail');
+        }
 
         // Prevent middle click auto-scroll
         document.addEventListener('mousedown', function(e) {
@@ -605,43 +1046,57 @@
 
         // Reset
         function resetTest(type) {
+            hideFailConfirm(type);
             switch(type) {
                 case 'left':
+                    setTestResult('left', null);
                     leftClicks = 0;
                     document.getElementById('left-counter').textContent = '0 / 5';
                     document.getElementById('left-progress').style.width = '0%';
-                    document.getElementById('left-status').textContent = 'Gotowe — kliknij lewym 5 razy w obszarze powyżej';
+                    document.getElementById('left-status').textContent = "Gotowe — kliknij lewym przyciskiem 5 razy w obszarze powyżej";
                     document.getElementById('left-status').className = 'status-msg';
                     break;
                 case 'right':
+                    setTestResult('right', null);
                     rightClicks = 0;
                     document.getElementById('right-counter').textContent = '0 / 5';
                     document.getElementById('right-progress').style.width = '0%';
-                    document.getElementById('right-status').textContent = 'Gotowe — kliknij prawym 5 razy w obszarze powyżej';
+                    document.getElementById('right-status').textContent = "Gotowe — kliknij prawym przyciskiem 5 razy w obszarze powyżej";
                     document.getElementById('right-status').className = 'status-msg';
                     break;
                 case 'scroll':
+                    setTestResult('scroll', null);
+                    scrollMode = null;
                     scrollUpCount = 0;
                     scrollDownCount = 0;
                     scrollAccumulator = 0;
                     document.getElementById('scroll-up-count').textContent = '0';
                     document.getElementById('scroll-down-count').textContent = '0';
                     document.getElementById('scroll-progress').style.width = '0%';
-                    document.getElementById('scroll-status').textContent = 'Gotowe — przewiń 3× w górę i 3× w dół w obszarze powyżej';
+                    document.getElementById('scroll-start-label').textContent = "PRZEWIJAJ TUTAJ — KÓŁKO LUB DOTYK";
+                    document.getElementById('scroll-na-confirm').classList.remove('visible');
+                    document.getElementById('scroll-status').textContent = "Gotowe — umieść wskaźnik w polu i przewijaj w górę i w dół";
                     document.getElementById('scroll-status').className = 'status-msg';
                     break;
                 case 'middle':
+                    setTestResult('middle', null);
                     middleClicks = 0;
+                    middleMode = null;
                     document.getElementById('middle-counter').textContent = '0 / 5';
                     document.getElementById('middle-progress').style.width = '0%';
-                    document.getElementById('middle-status').textContent = 'Gotowe — naciśnij kółko przewijania 5× w obszarze powyżej';
+                    document.getElementById('middle-test-body').classList.add('hidden');
+                    document.getElementById('middle-na-confirm').classList.remove('visible');
+                    document.getElementById('middle-has-button').classList.remove('selected');
+                    document.getElementById('middle-no-button').classList.remove('selected');
+                    document.getElementById('middle-status').textContent = "Wybierz jedną z opcji powyżej przed kontynuowaniem";
                     document.getElementById('middle-status').className = 'status-msg';
                     break;
                 case 'drag':
+                    setTestResult('drag', null);
                     dragCount = 0;
                     document.getElementById('drag-count').textContent = '0';
                     document.getElementById('drag-progress').style.width = '0%';
-                    document.getElementById('drag-status').textContent = 'Gotowe — kliknij i przeciągnij box, przesuń go i puść. Powtórz 2×.';
+                    document.getElementById('drag-status').textContent = "Gotowe — kliknij i przeciągnij pole, przesuń je i puść. Powtórz 2 razy.";
                     document.getElementById('drag-status').className = 'status-msg';
                     let box = document.getElementById('drag-box');
                     box.style.left = '50%';
@@ -650,7 +1105,33 @@
                     break;
             }
         }
+
+
+        // Reset all tests and return to the beginning.
+        // The button is locked until every test has a terminal result.
+        function resetAll() {
+            if (Object.values(testResults).some(result => !result)) return;
+
+            resetTest('left');
+            resetTest('right');
+            resetTest('scroll');
+            resetTest('middle');
+            resetTest('drag');
+
+            // Some sections collapse during reset (especially Middle Click).
+            // Wait for that layout change to finish, then force the page to the top.
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                });
+            });
+        }
+
+        // Initialize the locked Next Mouse state.
+        updateNextMouseButton();
+
     </script>
 </body>
 </html>
-
